@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import "./Weather.css";
 import axios from "axios";
-import FormattedDate from "./FormattedDate";
 import WeatherInfo from "./WeatherInfo";
 
 export default function Weather(props) {
@@ -19,7 +18,7 @@ export default function Weather(props) {
             date: new Date(response.data.dt * 1000), 
             city: response.data.name,
             description: response.data.weather[0].description,
-            iconUrl: `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
+            iconUrl: response.data.weather[0].icon
         })
     }
 
@@ -57,40 +56,8 @@ export default function Weather(props) {
                 </div>
             </form>
            <WeatherInfo data={weatherData}/>
-            <h1>{weatherData.city}</h1>
-            <ul>
-                <li><FormattedDate date={weatherData.date} /></li>
-                <li className="text-capitalize">{weatherData.description}</li>
-            </ul>
-        <div className="row mt-3">
-
-            <div className="col-6">
-
-                <img 
-                src ={weatherData.iconUrl}
-                alt={weatherData.description}
-                />
-
-                <span className="temperature">{Math.round(weatherData.temperature)}</span>
-                <span className="unit">°C</span>
-
+         
                 </div>
-
-                <div className="col-6">
-                    <ul>
-        
-                        <li>
-                            Humidity: {weatherData.humidity}%
-                        </li>
-                        <li>
-                            Wind: {Math.round(weatherData.wind)} km/h
-                        </li>
-                    </ul>
-                </div>
-        </div>
-
-            
-        </div>
          );
     } else {
    search();
@@ -99,7 +66,7 @@ export default function Weather(props) {
     }
 
    
-   
+
   
     
 }
